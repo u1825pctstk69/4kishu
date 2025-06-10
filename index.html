@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>機種ルーレット</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #fff;
+      margin-top: 30px;
+    }
+    #roulette-img {
+      width: 60vw;
+      max-width: 300px;
+      height: auto;
+      border: 2px solid #ccc;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 1.2rem;
+      margin: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    #machine-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    #machine-comment {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>今日は何の台の気分？</h1>
+  <img id="roulette-img" src="dummy.jpg" alt="ルーレット画像">
+  <div id="machine-name"></div>
+  <div id="machine-comment"></div>
+
+  <br>
+  <button onclick="startRoulette()">台を選ぶ</button>
+  <button onclick="stopRoulette()">もう一度選んでみる</button>
+
+  <script>
+    const machines = [
+      { name: "とある科学の超電磁砲２", comment: "これが私の全力だぁー！！", img: "relgun2.jpg" },
+      { name: "とある魔術の禁書目録２", comment: "その幻想をぶち壊す！！", img: "toaru2.jpg" },
+      { name: "新世紀エヴァンゲリオン　未来への咆哮", comment: "伝統にして最高傑作！", img: "evamirai.jpg" },
+      { name: "ぱちんこ　シン・エヴァンゲリオン", comment: "エヴァンゲリオン最終章", img: "sineva.jpg" },
+      { name: "ファンキーDr11000ver", comment: "６％の壁を越えた先に幸福が", img: "fanki11000.jpg" },
+      { name: "ぱちんこアズールレーン　異次元トリガー", comment: "エンタープライズ登場で最高潮！", img: "azren.jpg" },
+      { name: "フィーバー炎炎ノ消防隊", comment: "炎々の炎に帰せ、ラートム", img: "enen.jpg" },
+      { name: "リゼロ　鬼がかりver", comment: "リゼロを知らしめた代名詞", img: "rezero.jpg" }
+    ];
+
+    let rouletteTimer = null;
+
+    function startRoulette() {
+      if (rouletteTimer) clearInterval(rouletteTimer);
+
+      let i = 0;
+      rouletteTimer = setInterval(() => {
+        const index = i % machines.length;
+        const m = machines[index];
+        document.getElementById("roulette-img").src = m.img;
+        document.getElementById("machine-name").textContent = "";
+        document.getElementById("machine-comment").textContent = "";
+        i++;
+      }, 100);
+      
+      // 2秒後に停止してランダム選出
+      setTimeout(() => {
+        clearInterval(rouletteTimer);
+        const selected = machines[Math.floor(Math.random() * machines.length)];
+        document.getElementById("roulette-img").src = selected.img;
+        document.getElementById("machine-name").textContent = selected.name;
+        document.getElementById("machine-comment").textContent = selected.comment;
+      }, 2000);
+    }
+
+    function stopRoulette() {
+      startRoulette();
+    }
+  </script>
+</body>
+</html>
