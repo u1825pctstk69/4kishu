@@ -4,88 +4,103 @@
   <meta charset="UTF-8">
   <title>機種ルーレット</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
       font-family: sans-serif;
       text-align: center;
-      background: #fff;
-      margin-top: 30px;
     }
+
     #roulette-img {
-      width: 60vw;
-      max-width: 300px;
+      width: 90vw;
+      max-width: 90vw;
       height: auto;
       border: 2px solid #ccc;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
+
     button {
-      font-size: 1.2rem;
-      margin: 10px;
-      padding: 10px 20px;
+      font-size: 1.8rem;
+      margin: 15px;
+      padding: 20px 30px;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+      border: 2px solid #aaa;
       cursor: pointer;
     }
+
     #machine-name {
-      font-size: 1.4rem;
+      font-size: 2rem;
       font-weight: bold;
-      margin-top: 15px;
+      margin-top: 25px;
     }
+
     #machine-comment {
-      font-size: 1rem;
+      font-size: 1.4rem;
       color: #555;
-      margin-top: 8px;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
 
   <h1>今日は何の台の気分？</h1>
-  <img id="roulette-img" src="dummy.jpg" alt="ルーレット画像">
+
+  <!-- 初期表示のTOP画像 -->
+  <img id="roulette-img" src="TOP.jpg" alt="ルーレット画像">
+
   <div id="machine-name"></div>
   <div id="machine-comment"></div>
 
   <br>
-  <button onclick="startRoulette()">台を選ぶ</button>
-  <button onclick="stopRoulette()">もう一度選んでみる</button>
+  <button id="start-btn" onclick="startRoulette()">台を選ぶ</button>
+  <button id="retry-btn" onclick="startRoulette()" style="display:none;">もう一度選んでみる</button>
 
   <script>
     const machines = [
       { name: "とある科学の超電磁砲２", comment: "これが私の全力だぁー！！", img: "relgun2.jpg" },
       { name: "とある魔術の禁書目録２", comment: "その幻想をぶち壊す！！", img: "toaru2.jpg" },
       { name: "新世紀エヴァンゲリオン　未来への咆哮", comment: "伝統にして最高傑作！", img: "evamirai.jpg" },
-      { name: "ぱちんこ　シン・エヴァンゲリオン", comment: "エヴァンゲリオン最終章", img: "sineva.jpg" },
-      { name: "ファンキーDr11000ver", comment: "６％の壁を越えた先に幸福が", img: "fanki11000.jpg" },
-      { name: "ぱちんこアズールレーン　異次元トリガー", comment: "エンタープライズ登場で最高潮！", img: "azren.jpg" },
-      { name: "フィーバー炎炎ノ消防隊", comment: "炎々の炎に帰せ、ラートム", img: "enen.jpg" },
-      { name: "リゼロ　鬼がかりver", comment: "リゼロを知らしめた代名詞", img: "rezero.jpg" }
+      { name: "ぱちんこ　シン・エヴァンゲリオン", comment: "エヴァンゲリオン最終章！", img: "sineva.jpg" },
+      { name: "ファンキーDr11000ver", comment: "６％の壁を越えた先に幸福が♪", img: "fanki11000.jpg" },
+      { name: "ぱちんこアズールレーン　異次元トリガー", comment: "エンタープライズ登場で最高潮！", img: "azuren.jpg" },
+      { name: "フィーバー炎炎ノ消防隊", comment: "炎々の炎に帰せ、ラートム！", img: "enen.jpg" },
+      { name: "リゼロ　鬼がかりver", comment: "リゼロを知らしめた代名詞！", img: "rezero.jpg" }
     ];
 
-    let rouletteTimer = null;
-
     function startRoulette() {
-      if (rouletteTimer) clearInterval(rouletteTimer);
+      document.getElementById("start-btn").style.display = "none";
+      document.getElementById("retry-btn").style.display = "none";
+      document.getElementById("machine-name").textContent = "";
+      document.getElementById("machine-comment").textContent = "";
 
-      let i = 0;
-      rouletteTimer = setInterval(() => {
-        const index = i % machines.length;
-        const m = machines[index];
-        document.getElementById("roulette-img").src = m.img;
-        document.getElementById("machine-name").textContent = "";
-        document.getElementById("machine-comment").textContent = "";
-        i++;
-      }, 100);
-      
-      // 2秒後に停止してランダム選出
+      // Step 1：思案中画像（軽量化済画像推奨）
       setTimeout(() => {
-        clearInterval(rouletteTimer);
+        document.getElementById("roulette-img").src = "thinking.jpg";
+      }, 300);
+
+      // Step 2：ひらめき画像
+      setTimeout(() => {
+        document.getElementById("roulette-img").src = "idea.jpg";
+      }, 700);
+
+      // Step 3：結果表示（機種画像）
+      setTimeout(() => {
         const selected = machines[Math.floor(Math.random() * machines.length)];
         document.getElementById("roulette-img").src = selected.img;
         document.getElementById("machine-name").textContent = selected.name;
         document.getElementById("machine-comment").textContent = selected.comment;
-      }, 2000);
-    }
-
-    function stopRoulette() {
-      startRoulette();
+        document.getElementById("retry-btn").style.display = "inline-block";
+      }, 1300);
     }
   </script>
 </body>
 </html>
+
