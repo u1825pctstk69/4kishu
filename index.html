@@ -66,16 +66,23 @@
       document.getElementById("retry-btn").style.display = "none";
       document.getElementById("machine-name").textContent = "";
 
+      // 機種決定＆プリロード
+      const selected = machines[Math.floor(Math.random() * machines.length)];
+      const preImg = new Image();
+      preImg.src = selected.img;
+
+      // 思案中
       setTimeout(() => {
         document.getElementById("roulette-img").src = "thinking.jpg";
       }, 200);
 
+      // ひらめき
       setTimeout(() => {
         document.getElementById("roulette-img").src = "idea.jpg";
       }, 2200);
 
+      // 機種画像（プリロード済！）
       setTimeout(() => {
-        const selected = machines[Math.floor(Math.random() * machines.length)];
         document.getElementById("roulette-img").src = selected.img;
         document.getElementById("machine-name").textContent = selected.name;
         document.getElementById("retry-btn").style.display = "inline-block";
@@ -84,4 +91,5 @@
   </script>
 </body>
 </html>
+
 
