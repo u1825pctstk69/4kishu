@@ -41,62 +41,43 @@
       font-weight: bold;
       margin-top: 25px;
     }
-
-    #machine-comment {
-      font-size: 1.4rem;
-      color: #555;
-      margin-top: 15px;
-    }
   </style>
 </head>
 <body>
 
   <h1>今日は何の台の気分？</h1>
 
-  <!-- 初期表示のTOP画像 -->
   <img id="roulette-img" src="TOP.jpg" alt="ルーレット画像">
-
   <div id="machine-name"></div>
-  <div id="machine-comment"></div>
-
   <br>
   <button id="start-btn" onclick="startRoulette()">台を選ぶ</button>
   <button id="retry-btn" onclick="startRoulette()" style="display:none;">もう一度選んでみる</button>
 
   <script>
     const machines = [
-      { name: "とある科学の超電磁砲２",  "relgun2.jpg" },
-      { name: "とある魔術の禁書目録２",  "toaru2.jpg" },
-      { name: "新世紀エヴァンゲリオン　未来への咆哮",  "evamirai.jpg" },
-      { name: "ぱちんこ　シン・エヴァンゲリオン",  "sineva.jpg" },
-      { name: "ファンキーDr11000ver", comment: "fanki11000.jpg" },
-      { name: "ぱちんこアズールレーン　異次元トリガー",  "azren.jpg" },
-      { name: "フィーバー炎炎ノ消防隊",  "enen.jpg" },
-      { name: "リゼロ　鬼がかりver", "rezero.jpg" }
+      { name: "とある魔術の禁書目録２", img: "toaru2.jpg" },
+      { name: "とある科学の超電磁砲２", img: "relgun2.jpg" },
+      { name: "新世紀エヴァンゲリオン　未来への咆哮", img: "evamirai.jpg" },
+      { name: "シンエヴァンゲリオン", img: "sineva.jpg" }
     ];
 
     function startRoulette() {
       document.getElementById("start-btn").style.display = "none";
       document.getElementById("retry-btn").style.display = "none";
       document.getElementById("machine-name").textContent = "";
-      document.getElementById("machine-comment").textContent = "";
 
-      // Step 1：思案中画像（2秒）
       setTimeout(() => {
         document.getElementById("roulette-img").src = "thinking.jpg";
       }, 200);
 
-      // Step 2：ひらめき画像（1.5秒表示、計2.2秒後に切り替え）
       setTimeout(() => {
         document.getElementById("roulette-img").src = "idea.jpg";
       }, 2200);
 
-      // Step 3：結果表示（計3.7秒後に表示）
       setTimeout(() => {
         const selected = machines[Math.floor(Math.random() * machines.length)];
         document.getElementById("roulette-img").src = selected.img;
         document.getElementById("machine-name").textContent = selected.name;
-        document.getElementById("machine-comment").textContent = selected.comment;
         document.getElementById("retry-btn").style.display = "inline-block";
       }, 3700);
     }
