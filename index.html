@@ -65,14 +65,14 @@
 
   <script>
     const machines = [
-      { name: "とある科学の超電磁砲２", comment: "これが私の全力だぁー！！", img: "relgun2.jpg" },
-      { name: "とある魔術の禁書目録２", comment: "その幻想をぶち壊す！！", img: "toaru2.jpg" },
-      { name: "新世紀エヴァンゲリオン　未来への咆哮", comment: "伝統にして最高傑作！", img: "evamirai.jpg" },
-      { name: "ぱちんこ　シン・エヴァンゲリオン", comment: "エヴァンゲリオン最終章！", img: "sineva.jpg" },
-      { name: "ファンキーDr11000ver", comment: "６％の壁を越えた先に幸福が♪", img: "fanki11000.jpg" },
-      { name: "ぱちんこアズールレーン　異次元トリガー", comment: "エンタープライズ登場で最高潮！", img: "azuren.jpg" },
-      { name: "フィーバー炎炎ノ消防隊", comment: "炎々の炎に帰せ、ラートム！", img: "enen.jpg" },
-      { name: "リゼロ　鬼がかりver", comment: "リゼロを知らしめた代名詞！", img: "rezero.jpg" }
+      { name: "とある科学の超電磁砲２",  "relgun2.jpg" },
+      { name: "とある魔術の禁書目録２",  "toaru2.jpg" },
+      { name: "新世紀エヴァンゲリオン　未来への咆哮",  "evamirai.jpg" },
+      { name: "ぱちんこ　シン・エヴァンゲリオン",  "sineva.jpg" },
+      { name: "ファンキーDr11000ver", comment: "fanki11000.jpg" },
+      { name: "ぱちんこアズールレーン　異次元トリガー",  "azren.jpg" },
+      { name: "フィーバー炎炎ノ消防隊",  "enen.jpg" },
+      { name: "リゼロ　鬼がかりver", "rezero.jpg" }
     ];
 
     function startRoulette() {
@@ -81,24 +81,24 @@
       document.getElementById("machine-name").textContent = "";
       document.getElementById("machine-comment").textContent = "";
 
-      // Step 1：思案中画像（軽量化済画像推奨）
+      // Step 1：思案中画像（2秒）
       setTimeout(() => {
         document.getElementById("roulette-img").src = "thinking.jpg";
-      }, 300);
+      }, 200);
 
-      // Step 2：ひらめき画像
+      // Step 2：ひらめき画像（1.5秒表示、計2.2秒後に切り替え）
       setTimeout(() => {
         document.getElementById("roulette-img").src = "idea.jpg";
-      }, 700);
+      }, 2200);
 
-      // Step 3：結果表示（機種画像）
+      // Step 3：結果表示（計3.7秒後に表示）
       setTimeout(() => {
         const selected = machines[Math.floor(Math.random() * machines.length)];
         document.getElementById("roulette-img").src = selected.img;
         document.getElementById("machine-name").textContent = selected.name;
         document.getElementById("machine-comment").textContent = selected.comment;
         document.getElementById("retry-btn").style.display = "inline-block";
-      }, 1300);
+      }, 3700);
     }
   </script>
 </body>
